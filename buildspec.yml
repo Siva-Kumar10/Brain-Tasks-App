@@ -1,0 +1,14 @@
+version: 0.2
+
+phase:
+  pre_build:
+    commands:
+      - echo "Logging into Docker Hub"
+      - echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --PASSWORD-
+  build:
+    commands:
+      - docker build -t brain-task-app .
+      - docker tag brain-task-app $DOCKER_USERNAME/project-brain-task-app
+  post_build:
+    commands:
+      - docker push $DOCKER_USERNAME/project-brain-task-app
