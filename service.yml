@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: brain-task-app-service
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
+    service.beta.kubernetes.io/aws-load-balancer-subnets: subnet-01c6d02cb15af9ac5,subnet-0c883b061dbc175f3,subnet-0de57ee0988f7ea7d
+spec:
+  type: LoadBalancer
+  selector:
+    app: brain-task-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+
