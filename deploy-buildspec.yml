@@ -1,0 +1,24 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - curl -LO "https://dl.k8s.io/release/v1.37.0/bin/linux/amd64/kubectl"
+      - chmod +x kubectl
+      - mv kubectl /usr/local/bin
+
+  pre_build:
+    commands:
+      - aws eks update-kubeconfig --region ap-south-2 --name Brain-Task-App
+
+  build:
+    commands:
+      - kubectl apply -f deployment.yml
+      - kubectl apply -f service.yml
+
+  post_build:
+    commands:
+      kubectl get pods
+      kubectl get svc
+
+
